@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="create_role_table" author="khaupshev_em">
+        <sql>
+            CREATE TABLE IF NOT EXISTS ROLES
+            (
+                ID         SERIAL PRIMARY KEY,
+                ROLE_NAME  VARCHAR(255) UNIQUE NOT NULL,
+                STATUS     VARCHAR(255) UNIQUE NOT NULL,
+                CREATED_AT TIMESTAMP           NOT NULL,
+                UPDATED_AT TIMESTAMP           NOT NULL
+            )
+        </sql>
+        <rollback>
+            DROP TABLE ROLES
+        </rollback>
+    </changeSet>
+
+    <changeSet id="create_user_table" author="khaupshev_em">
+        <sql>
+            CREATE TABLE IF NOT EXISTS USERS
+            (
+                ID         SERIAL PRIMARY KEY,
+                ROLE_ID    BIGINT REFERENCES ROLES,
+                USER_NAME  VARCHAR(255) UNIQUE NOT NULL,
+                FIRST_NAME VARCHAR(255)        NOT NULL,
+                LAST_NAME  VARCHAR(255)        NOT NULL,
+                EMAIL      VARCHAR(255) UNIQUE NOT NULL,
+                PASSWORD   VARCHAR(255)        NOT NULL,
+                CREATED_AT TIMESTAMP           NOT NULL,
+                UPDATED_AT TIMESTAMP           NOT NULL
+            );
+        </sql>
+        <rollback>
+            DROP TABLE USERS
+        </rollback>
+    </changeSet>
+
+    <changeSet id="create_messages_table" author="khaupshev_em">
+        <sql>
+            CREATE TABLE IF NOT EXISTS MESSAGES
+            (
+                ID         SERIAL PRIMARY KEY,
+                MESSAGE    VARCHAR(255) NOT NULL,
+                USER_ID    BIGINT REFERENCES USERS,
+                CREATED_AT TIMESTAMP    NOT NULL,
+                UPDATED_AT TIMESTAMP    NOT NULL
+            );
+        </sql>
+        <rollback>
+            DROP TABLE MESSAGES
+        </rollback>
+    </changeSet>
+
+    <changeSet id="create_default_roles" author="khaupshev_em">
+        <loadData
+                file="data/roles.csv"
+                separator=";"
+                tableName="ROLES">
+            <column name="role_name" type="string"/>
+            <column name="status" type="string"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,26 @@
+server:
+  port: 9000
+  servlet:
+    context-path: /api/v1
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test-project
+    username: postgres
+    password: postgres
+  liquibase:
+    change-log: classpath:/db.changelog/changelog-master.xml
+    enabled: true
+  jpa:
+    show-sql: true
+    open-in-view: true
+    properties:
+      hibernate.jdbc.time_zone: UTC
+  messages:
+    basename: i18n/messages
+jwt:
+  token:
+    secret: test
+    expiration-period: 900 000
+client:
+  auth:
+    url: http://localhost:9000
