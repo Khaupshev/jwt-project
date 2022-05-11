@@ -60,7 +60,6 @@ public class User extends AbstractEntity {
      *         the messages
      */
     public void setMessages(List<Message> messages) {
-        this.messages.clear();
         messages.forEach(message -> message.setUser(this));
         this.messages.addAll(messages);
     }

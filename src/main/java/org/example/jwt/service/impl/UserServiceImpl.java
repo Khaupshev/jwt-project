@@ -103,7 +103,8 @@ public class UserServiceImpl implements UserService {
                 .map(user -> {
                     var messages = messageDto.getMessages();
                     user.setMessages(messageMapper.map(messages));
-                    return ResponseEntity.ok(messageDto);
+                    userRepository.save(user);
+                    return ResponseEntity.ok().build();
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
