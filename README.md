@@ -19,43 +19,31 @@ docker-compose up
 Ниже представлены curl-запросы:
 1.	Регистрируем пользователя с ролью USER:
 
-    curl --location --request POST 'http://localhost:9090/api/v1/sign-up' \
---header 'Content-Type: application/json' \
---data-raw '{
+    curl --location --request POST 'http://localhost:9090/api/v1/sign-up' \--header 'Content-Type: application/json' \--data-raw '{
     "userName": "user3",
     "firstName": "1",
     "lastName": "2",
     "email": "3",
     "role": "USER",
-    "password": "1"
-}'
+    "password": "1"}'
 2.	Регистрация пользователя с ролью ADMIN:
     
-    curl --location --request POST 'http://localhost:9090/api/v1/sign-up' \
---header 'Content-Type: application/json' \
---data-raw '{
+    curl --location --request POST 'http://localhost:9090/api/v1/sign-up' \--header 'Content-Type: application/json' \--data-raw '{
     "userName": "user4",
     "firstName": "1",
     "lastName": "2",
     "email": "4",
     "role": "ADMIN",
-    "password": "1"
-}'
+    "password": "1"}'
 3.	Авторизация пользователя:
     
-    curl --location --request POST 'http://localhost:9090/api/v1/sign-in' \
---header 'Content-Type: application/json' \
---data-raw '{
+    curl --location --request POST 'http://localhost:9090/api/v1/sign-in' \--header 'Content-Type: application/json' \--data-raw '{
     "userName": "user3",
-    "password": "1"
-}'
+    "password": "1"}'
 4.	Запросы выше возвращают jwt-токен, его необходимо будет скопировать и использовать в следующих запросах вместо \<TOKEN\>
 5.	Отправить сообщения пользователю:
 
-    curl --location --request POST 'http://localhost:9090/api/v1/user/message' \
---header 'Authorization: Bearer_\<TOKEN\>' \
---header 'Content-Type: application/json' \
---data-raw '{
+    curl --location --request POST 'http://localhost:9090/api/v1/user/message' \--header 'Authorization: Bearer_\<TOKEN\>' \--header 'Content-Type: application/json' \--data-raw '{
     "userName": "user3",
     "messages": [
         "1",
@@ -65,21 +53,15 @@ docker-compose up
         "5",
         "6",
         "10"
-    ]
-}'
+    ]}'
 6.	Получить историю сообщений:
 
-    curl --location --request GET 'http://localhost:9090/api/v1/user/history' \
---header 'Authorization: Bearer_\<TOKEN\>' \
---header 'Content-Type: application/json' \
---data-raw '{
+    curl --location --request GET 'http://localhost:9090/api/v1/user/history' \--header 'Authorization: Bearer_\<TOKEN\>' \--header 'Content-Type: application/json' \--data-raw '{
     "userName": "user3",
-    "countMessages": 10
-}'
+    "countMessages": 10}'
 7.	Запрос администратора, получить всех пользователей (следовательно необходимо использовать токен, полученный при регистрации пользователя с ролью ADMIN, 2 запрос)
 
-    curl --location --request GET 'http://localhost:9090/api/v1/admin/all' \
---header 'Authorization: Bearer_\<TOKEN\>'
+    curl --location --request GET 'http://localhost:9090/api/v1/admin/all' \--header 'Authorization: Bearer_\<TOKEN\>'
 
 Ссылки на docker hub:
     
