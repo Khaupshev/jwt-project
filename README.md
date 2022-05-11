@@ -81,3 +81,6 @@ docker-compose up
     curl --location --request GET 'http://localhost:9090/api/v1/admin/all' \
 --header 'Authorization: Bearer_\<token\>'
 
+Ссылки на docker hub:
+https://hub.docker.com/repository/docker/khaupshev/postgres
+https://hub.docker.com/repository/docker/khaupshev/app
