@@ -15,6 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @FeignClient(name = "auth", url = "${client.auth.url}", configuration = FeignClientsConfiguration.class)
 public interface AuthClient {
 
+    /**
+     * Gets token.
+     *
+     * @param request
+     *         the request
+     * @return the token
+     */
     @ResponseBody
     @PostMapping(path = "/api/v1/sign-in", consumes = MediaType.APPLICATION_JSON_VALUE)
     AuthenticationResponse getToken(@RequestBody AuthenticationRequest request);

@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.jwt.model.Status;
 
+/**
+ * The type User dto.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

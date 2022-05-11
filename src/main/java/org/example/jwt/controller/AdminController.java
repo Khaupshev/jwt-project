@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * The type Admin controller.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/admin")
@@ -18,6 +21,11 @@ public class AdminController {
 
     private final UserService userService;
 
+    /**
+     * Users list.
+     *
+     * @return the list
+     */
     @GetMapping("/all")
     public List<UserDto> users() {
         return userService.getAllUsers();

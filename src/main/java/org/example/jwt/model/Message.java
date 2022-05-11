@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * The type Message.
+ */
 @Entity
 @Table(name = "messages")
 @Getter
@@ -30,6 +33,12 @@ public class Message extends AbstractEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    /**
+     * Sets user.
+     *
+     * @param user
+     *         the user
+     */
     public void setUser(User user) {
         this.user = user;
     }

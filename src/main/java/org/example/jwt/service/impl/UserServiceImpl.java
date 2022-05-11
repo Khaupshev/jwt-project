@@ -28,6 +28,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * The type User service.
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -105,6 +108,13 @@ public class UserServiceImpl implements UserService {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     * Create user user.
+     *
+     * @param userDto
+     *         the user dto
+     * @return the user
+     */
     @Transactional
     User createUser(UserDto userDto) {
         if (!isAlreadyExistsUserNameOrEmail(userDto)) {

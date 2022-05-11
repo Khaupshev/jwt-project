@@ -9,6 +9,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The type Admin token interceptor.
+ */
 @Component
 @RequiredArgsConstructor
 public class AdminTokenInterceptor implements HandlerInterceptor {

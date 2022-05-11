@@ -9,10 +9,22 @@ import org.springframework.http.HttpStatus;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+/**
+ * The type Feign utils.
+ */
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class FeignUtils {
 
+    /**
+     * Gets response.
+     *
+     * @param <T>
+     *         the type parameter
+     * @param feignSupplier
+     *         the feign supplier
+     * @return the response
+     */
     public static <T> Optional<T> getResponse(Supplier<T> feignSupplier) {
         final T response;
         try {
