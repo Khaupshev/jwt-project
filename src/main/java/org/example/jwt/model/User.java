@@ -6,10 +6,22 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.hibernate.Hibernate;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The type User.
+ */
 @Entity
 @Table(name = "users")
 @Getter
@@ -41,8 +53,13 @@ public class User extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Message> messages;
 
+    /**
+     * Sets messages.
+     *
+     * @param messages
+     *         the messages
+     */
     public void setMessages(List<Message> messages) {
-        this.messages.clear();
         messages.forEach(message -> message.setUser(this));
         this.messages.addAll(messages);
     }

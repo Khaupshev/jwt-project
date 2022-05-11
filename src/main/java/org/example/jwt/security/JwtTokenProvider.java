@@ -16,6 +16,9 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
+/**
+ * The type Jwt token provider.
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -29,6 +32,13 @@ public class JwtTokenProvider {
 
     private final LogSourceHelper logSourceHelper;
 
+    /**
+     * Create token string.
+     *
+     * @param user
+     *         the user
+     * @return the string
+     */
     public String createToken(UserDto user) {
 
         var userName = user.getUserName();
@@ -47,6 +57,13 @@ public class JwtTokenProvider {
                 .compact();
     }
 
+    /**
+     * Resolve token string.
+     *
+     * @param req
+     *         the req
+     * @return the string
+     */
     public String resolveToken(HttpServletRequest req) {
         var bearerToken = req.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
@@ -55,6 +72,15 @@ public class JwtTokenProvider {
         return null;
     }
 
+    /**
+     * Validate token boolean.
+     *
+     * @param token
+     *         the token
+     * @param status
+     *         the status
+     * @return the boolean
+     */
     public boolean validateToken(String token, Status status) {
         try {
             var claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);

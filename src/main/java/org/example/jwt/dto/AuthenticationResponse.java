@@ -2,6 +2,9 @@ package org.example.jwt.dto;
 
 import lombok.*;
 
+/**
+ * The type Authentication response.
+ */
 @Setter
 @Getter
 @Builder

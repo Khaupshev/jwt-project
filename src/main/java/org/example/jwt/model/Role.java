@@ -5,6 +5,9 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The type Role.
+ */
 @Entity
 @Table(name = "roles")
 @Getter

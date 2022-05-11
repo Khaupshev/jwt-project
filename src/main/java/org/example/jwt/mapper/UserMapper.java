@@ -15,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
+/**
+ * The type User mapper.
+ */
 @Mapper(config = SpringMapperConfig.class)
 public abstract class UserMapper {
 
@@ -24,30 +27,64 @@ public abstract class UserMapper {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    /**
+     * Map user.
+     *
+     * @param userDto
+     *         the user dto
+     * @return the user
+     */
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "messages", ignore = true)
     @Mapping(target = "password", source = "password", qualifiedByName = "encodePassword")
-    @Mapping(target = "role", expression = "java(getRole())")
+    @Mapping(target = "role", source = "role",  qualifiedByName = "role")
     public abstract User map(UserDto userDto);
 
+    /**
+     * Map user dto.
+     *
+     * @param user
+     *         the user
+     * @return the user dto
+     */
     @Mapping(target = "role", source = "user.role.status")
     public abstract UserDto map(User user);
 
-    @Mapping(target = "userName", source = "userName")
+    /**
+     * To request authentication request.
+     *
+     * @param userDto
+     *         the user dto
+     * @return the authentication request
+     */
     public abstract AuthenticationRequest toRequest(UserDto userDto);
 
+    /**
+     * Map list.
+     *
+     * @param users
+     *         the users
+     * @return the list
+     */
     public abstract List<UserDto> map(List<User> users);
 
     /**
-     * Не самая лучшая реализация, при каждом добавлении userа лишнее обращение к бд. Как альтернатива можно было просто
-     * объявить enum {@link org.example.jwt.model.Status} как атрибут userа.
-     * Из плюсов можно выделить гибкость, при добавлении фич, связанных с сущностью {@link Role}
+     * Gets role.
+     *
+     * @return the role
      */
     @Named("role")
-    public Role getRole() {
-        return roleRepository.getByStatus(Status.USER);
+    public Role getRole(Status status) {
+        return roleRepository.getByStatus(status);
     }
 
+    /**
+     * Gets encode password.
+     *
+     * @param password
+     *         the password
+     * @return the encode password
+     */
     @Named("encodePassword")
     public String getEncodePassword(String password) {
         return passwordEncoder.encode(password);

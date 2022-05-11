@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * The type Jwt token filter.
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -19,6 +22,15 @@ public class JwtTokenFilter {
 
     private final LogSourceHelper logSourceHelper;
 
+    /**
+     * Do filter boolean.
+     *
+     * @param request
+     *         the request
+     * @param status
+     *         the status
+     * @return the boolean
+     */
     public boolean doFilter (HttpServletRequest request, Status status) {
         var token = jwtTokenProvider.resolveToken(request);
         if (token != null && jwtTokenProvider.validateToken(token, status)) {
